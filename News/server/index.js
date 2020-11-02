@@ -6,7 +6,7 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-
+/*
 app.get("/api/get", (req, res) => {
     db.query("SELECT * FROM posts", (err, result) => {
         if (err) {
@@ -39,25 +39,25 @@ app.post("/api/create", (req, res) => {
     }
     );
 })
-
+ */
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 app.post('/login', (req, res) => {
     const username = req.body.username
     const userpass = req.body.userpass
-    db.query("SELECT * FROM users WHERE UserName = ? AND UserPass = ?",[username, userpass] , (err, result)=>{
+    
+    db.query("SELECT * FROM giaovien WHERE Username = ? AND Passwork = ?",[username, userpass] , (err, result)=>{
+        //console.log("1234567890");
         if (err){
-            res.send({err: err})
+            res.send({err: err})       
         }
-        if (result.lenght > 0){
+        if (result.length > 0){
             res.send(result)
         }
         else {
             res.send({message: "Tài khoản hoặc mật khẩu không hợp lệ"})
         }
-    }
-    );
-
-})
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    });
 });
+
