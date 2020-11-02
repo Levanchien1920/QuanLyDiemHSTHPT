@@ -39,18 +39,14 @@ app.post("/api/create", (req, res) => {
     }
     );
 })
- */
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+*/
 app.post('/login', (req, res) => {
     const username = req.body.username
     const userpass = req.body.userpass
-    
+
     db.query("SELECT * FROM giaovien WHERE Username = ? AND Passwork = ?",[username, userpass] , (err, result)=>{
-        //console.log("1234567890");
         if (err){
-            res.send({err: err})       
+            res.send({err: err})
         }
         if (result.length > 0){
             res.send(result)
@@ -58,6 +54,14 @@ app.post('/login', (req, res) => {
         else {
             res.send({message: "Tài khoản hoặc mật khẩu không hợp lệ"})
         }
-    });
-});
+        console.log(username)
+        console.log(userpass)
+        console.log(result)
+    }
+    );
 
+})
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
