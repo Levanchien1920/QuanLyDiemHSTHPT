@@ -26,6 +26,7 @@ export default function App() {
           <Route path="/thoikhoabieu" render={(props) => <GiaoVien />} />
           <Route path="/nhapdiem" render={(props) => <NhapDiem />} /> 
           <Route path="/hocsinh" render={(props) => <HocSinh />} /> 
+          <Route path="/xemdiem" render={(props) => <HocSinh />} />
           <Route path="/phanhoi" render={(props) => <PhanHoi />} /> 
         </Switch>
         </Router>
