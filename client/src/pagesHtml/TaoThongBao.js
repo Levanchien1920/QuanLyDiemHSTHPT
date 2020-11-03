@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../App.css';
 import Axios from 'axios'
 export default function CreatePost() {
     
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
-    const user = localStorage.getItem("user")
-    console.log(user)
+    const [user, setUser] = useState("") 
+    const [auth, setAuth] = useState("")
+    useEffect(() => {
+        Axios.get("http://localhost:3001/auth/admin", {
+            headers: {
+                "x-access-token": JSON.parse(localStorage.getItem("token"))
+            }
+        }).then((data) => {
+            setAuth(data.data)
+            if(auth === "OK"){
+            const temp = localStorage.getItem("user").split('"').join('')
+            Axios.put("http://localhost:3001/admin", { id: temp }).then((response) => {
+                setUser(response.data[0].UserName)
+            });
+        }
+        });
+    });
+
+
     const submitpost = () =>{
         Axios.post('http://localhost:3001/api/create', {title: title, text: text})
     };
 
+    if (auth === "OK") {
     return (
         <div>
         <div className="bar">
@@ -32,4 +50,10 @@ export default function CreatePost() {
         </div>
         </div>
     )
+    }
+    else {
+        return(
+            <div>GET OUT </div>
+        )
+    }
 }

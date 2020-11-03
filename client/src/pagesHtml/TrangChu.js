@@ -8,7 +8,7 @@ export default function MainPage() {
     let history = useHistory();
     useEffect(() => {
         localStorage.clear();
-        Axios.get("http://localhost:3001/api/get").then((data)=>{
+        Axios.get("http://localhost:3001/get").then((data)=>{
             console.log(data.data)
             setList(data.data)
         });
@@ -28,9 +28,9 @@ export default function MainPage() {
             <div className="Container">
                 {postList.map((val,key)=>{
                     return (
-                        <div className="post" key={key} onClick={()=>{history.replace(`/post/${val.ID}`)}}>
-                            <h1>{val.Title}</h1>
-                            <p>{val.Text.length > 400 ? val.Text.substring(0,400) : val.Text}</p>
+                        <div className="post" key={key} onClick={()=>{history.replace(`/post/${val.id}`)}}>
+                            <h1>{val.tieude}</h1>
+                            <p>{val.tieude.length > 400 ? val.noidung.substring(0,400) : val.noidung}</p>
                         </div>
                     )
                 })}

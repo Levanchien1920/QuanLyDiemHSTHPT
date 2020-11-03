@@ -7,7 +7,7 @@ export default function Post() {
     let { postID }= useParams();
     useEffect(() => {
         Axios.get(`http://localhost:3001/api/getFromID/${postID}`).then((data)=>{
-            setPost({title: data.data[0].Title, text: data.data[0].Text})
+            setPost({title: data.data[0].tieude, text: data.data[0].noidung})
         });
     }, );
     return (

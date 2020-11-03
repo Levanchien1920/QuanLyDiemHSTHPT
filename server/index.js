@@ -2,13 +2,14 @@ const express = require('express');
 const db = require("./config/db");
 const app = express();
 const cors = require('cors');
+const jwt = require('jsonwebtoken')
 const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-/*
-app.get("/api/get", (req, res) => {
-    db.query("SELECT * FROM posts", (err, result) => {
+
+app.get("/get", (req, res) => {
+    db.query("SELECT * FROM thongbao", (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -17,9 +18,9 @@ app.get("/api/get", (req, res) => {
     );
 });
 
-app.get("/api/getFromID/:id", (req, res) => {
+app.get("/getFromID/:id", (req, res) => {
     const id = req.params.id
-    db.query("SELECT * FROM posts WHERE ID = ?", id, (err, result) => {
+    db.query("SELECT * FROM thongbao WHERE id = ?", id, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -28,10 +29,10 @@ app.get("/api/getFromID/:id", (req, res) => {
     );
 });
 
-app.post("/api/create", (req, res) => {
+app.post("/create", (req, res) => {
     const title = req.body.title;
     const text = req.body.text;
-    db.query("INSERT INTO posts (Title, Text) VALUES (?,?)", [title, text], (err, result) => {
+    db.query("INSERT INTO thongbao (tieude, noidung) VALUES (?,?)", [title, text], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -39,27 +40,164 @@ app.post("/api/create", (req, res) => {
     }
     );
 })
-*/
-app.post('/login', (req, res) => {
+
+const verifyJWTAdmin = (req, res, next) => {
+    const token = req.headers["x-access-token"]
+    if(!token){
+        res.send ("token missing!!!")
+    }
+    else{
+        jwt.verify(token, "jwtSecret", (err, decode) =>{
+            if(err){
+                res.json({ auth: false, message: "false"})
+            }
+            else{
+                req.ma = decode.MaAdmin
+                next()
+            }
+        })
+    }
+}
+
+app.get("/auth/admin", verifyJWTAdmin, (req, res) =>{
+    res.send ("OK")
+})
+
+app.post('/login/admin', (req, res) => {
     const username = req.body.username
     const userpass = req.body.userpass
 
-    db.query("SELECT * FROM giaovien WHERE Username = ? AND Passwork = ?",[username, userpass] , (err, result)=>{
+    db.query("SELECT MaAdmin FROM admin WHERE Username = ? AND Password = ?",[username, userpass] , (err, result)=>{
         if (err){
             res.send({err: err})
         }
         if (result.length > 0){
-            res.send(result)
+            const id = result[0].ID
+            const token = jwt.sign({id}, "jwtSecret", {
+                expiresIn: 3600
+            })
+            res.json({auth: true, token: token, result: result})
         }
         else {
-            res.send({message: "Tài khoản hoặc mật khẩu không hợp lệ"})
+            res.json({auth: false, message: "Tài khoản hoặc mật khẩu không hợp lệ"})
         }
-        console.log(username)
-        console.log(userpass)
-        console.log(result)
     }
     );
+})
 
+app.put("/admin", (req, res) =>{
+    db.query("SELECT * FROM admin WHERE MaAdmin = ?", req.body.id , (err, result)=>{
+        if(err){
+            res.send({err:err})
+        }
+        res.send(result)
+    })
+})
+
+const verifyJWTGV = (req, res, next) => {
+    const token = req.headers["x-access-token"]
+    if(!token){
+        res.send ("token missing!!!")
+    }
+    else{
+        jwt.verify(token, "jwtSecret", (err, decode) =>{
+            if(err){
+                res.json({ auth: false, message: "false"})
+            }
+            else{
+                req.ma = decode.MaGV
+                next()
+            }
+        })
+    }
+}
+
+app.get("/auth/GV", verifyJWTGV, (req, res) =>{
+    res.send ("OK")
+})
+
+app.post('/login/GV', (req, res) => {
+    const username = req.body.username
+    const userpass = req.body.userpass
+
+    db.query("SELECT MaGV FROM giaovien WHERE Username = ? AND Password = ?",[username, userpass] , (err, result)=>{
+        if (err){
+            res.send({err: err})
+        }
+        if (result.length > 0){
+            const id = result[0].MaGV
+            const token = jwt.sign({id}, "jwtSecret", {
+                expiresIn: 3600
+            })
+            res.json({auth: true, token: token, result: result})
+        }
+        else {
+            res.json({auth: false, message: "Tài khoản hoặc mật khẩu không hợp lệ"})
+        }
+    }
+    );
+})
+
+app.put("/GV", (req, res) =>{
+    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
+        if(err){
+            res.send({err:err})
+        }
+        res.send(result)
+    })
+})
+
+const verifyJWTHS = (req, res, next) => {
+    const token = req.headers["x-access-token"]
+    if(!token){
+        res.send ("token missing!!!")
+    }
+    else{
+        jwt.verify(token, "jwtSecret", (err, decode) =>{
+            if(err){
+                res.json({ auth: false, message: "false"})
+            }
+            else{
+                req.ma = decode.MaHS
+                next()
+            }
+        })
+    }
+}
+
+app.get("/auth/HS", verifyJWTHS, (req, res) =>{
+    res.send ("OK")
+})
+
+app.post('/login/HS', (req, res) => {
+    const username = req.body.username
+    const userpass = req.body.userpass
+
+    db.query("SELECT MaHS FROM hocsinh WHERE Username = ? AND Password = ?",[username, userpass] , (err, result)=>{
+        if (err){
+            res.send({err: err})
+        }
+        if (result.length > 0){
+            const id = result[0].MaHS
+            const token = jwt.sign({id}, "jwtSecret", {
+                expiresIn: 3600
+            })
+            res.json({auth: true, token: token, result: result})
+        }
+        else {
+            res.json({auth: false, message: "Tài khoản hoặc mật khẩu không hợp lệ"})
+        }
+    }
+    );
+})
+
+app.put("/HS", (req, res) =>{
+    db.query("SELECT * FROM hocsinh WHERE MaHS = ?", req.body.id , (err, result)=>{
+        if(err){
+            res.send({err:err})
+        }
+        res.send(result)
+    })
 })
 
 app.listen(PORT, () => {

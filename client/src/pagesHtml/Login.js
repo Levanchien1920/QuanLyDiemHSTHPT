@@ -7,28 +7,49 @@ export default function Login() {
     const [username, setName] = useState("");
     const [userpass, setPass] = useState("");
     const [status, setStatus] = useState("");
+    localStorage.clear();
     let history = useHistory();
     const login = () => {
-        if (username.substring(0,2) === "AC" && userpass === "123") {
-            history.push("/mainpage")
-        }
-        else {
-            Axios.post('http://localhost:3001/login', { username: username, userpass: userpass }).then((response) => {
-
-                if (response.data.message) {
+        if (username.substring(0,2) === "AD") {
+            Axios.post('http://localhost:3001/login/admin', { username: username, userpass: userpass }).then((response) => {
+                if (!response.data.auth) {
                     setStatus(response.data.message)
                 }
                 else {
-                    if (username.substring(0,2) === "AB") {
-                        console.log(response.data);
-                        localStorage.setItem("user", response.data[0].Username);
-                        history.push("/createpost")
-                    }
-                    else {
-                        console.log(response)
-                    }
+                        localStorage.setItem("token", JSON.stringify(response.data.token))
+                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaAdmin));
+                        history.push("/taothongbao")
                 }
             })
+        }
+        else if (username.substring(0,2) === "GV"){
+            Axios.post('http://localhost:3001/login/GV', { username: username, userpass: userpass }).then((response) => {
+
+                if (!response.data.auth) {
+                    setStatus(response.data.message)
+                }
+                else {
+                        localStorage.setItem("token", JSON.stringify(response.data.token))
+                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaGV));
+                        history.push("/giaovien")
+                }
+            })
+        }
+        else if (username.substring(0,2) === "HS"){
+            Axios.post('http://localhost:3001/login/HS', { username: username, userpass: userpass }).then((response) => {
+
+                if (!response.data.auth) {
+                    setStatus(response.data.message)
+                }
+                else {
+                        localStorage.setItem("token", JSON.stringify(response.data.token))
+                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaHS));
+                        history.push("/hocsinh")
+                }
+            })
+        }
+        else {
+            setStatus("Không tìm thấy Username")
         }
     }
     return (
