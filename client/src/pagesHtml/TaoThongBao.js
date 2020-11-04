@@ -17,12 +17,11 @@ export default function CreatePost() {
             if(auth === "OK"){
             const temp = localStorage.getItem("user").split('"').join('')
             Axios.put("http://localhost:3001/admin", { id: temp }).then((response) => {
-                setUser(response.data[0].UserName)
+                setUser(response.data[0].Username)
             });
         }
         });
     });
-
 
     const submitpost = () =>{
         Axios.post('http://localhost:3001/api/create', {title: title, text: text})
@@ -33,7 +32,7 @@ export default function CreatePost() {
         <div>
         <div className="bar">
             <div className="Link">
-                <a href="/createpost">Create</a>
+                <a href="/taothongbao">Create</a>
                 <a href="/taohannhapdiem"> Tạo Hạn Nhập Điểm</a>
                 <div style={{display: "inline-block"}}>Hi {user}</div>
                 <a href="/trangchu">Đăng Xuất</a>

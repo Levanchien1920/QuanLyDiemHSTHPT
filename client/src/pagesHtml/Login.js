@@ -10,50 +10,53 @@ export default function Login() {
     localStorage.clear();
     let history = useHistory();
     const login = () => {
-        if (username.substring(0,2) === "AD") {
+        if (username.substring(0, 2) === "AD") {
             Axios.post('http://localhost:3001/login/admin', { username: username, userpass: userpass }).then((response) => {
                 if (!response.data.auth) {
                     setStatus(response.data.message)
                 }
                 else {
-                        localStorage.setItem("token", JSON.stringify(response.data.token))
-                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaAdmin));
-                        history.push("/taothongbao")
+                    localStorage.setItem("token", JSON.stringify(response.data.token))
+                    localStorage.setItem("user", JSON.stringify(response.data.result[0].MaAdmin));
+                    history.push("/taothongbao")
                 }
             })
         }
-        else if (username.substring(0,2) === "GV"){
+        else if (username.substring(0, 2) === "GV") {
             Axios.post('http://localhost:3001/login/GV', { username: username, userpass: userpass }).then((response) => {
 
                 if (!response.data.auth) {
                     setStatus(response.data.message)
                 }
                 else {
-                        localStorage.setItem("token", JSON.stringify(response.data.token))
-                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaGV));
-                        history.push("/giaovien")
+                    localStorage.setItem("token", JSON.stringify(response.data.token))
+                    localStorage.setItem("user", JSON.stringify(response.data.result[0].MaGV));
+                    history.push("/thoikhoabieu")
                 }
             })
         }
-        else if (username.substring(0,2) === "HS"){
+        else if (username.substring(0, 2) === "HS") {
             Axios.post('http://localhost:3001/login/HS', { username: username, userpass: userpass }).then((response) => {
 
                 if (!response.data.auth) {
                     setStatus(response.data.message)
                 }
                 else {
-                        localStorage.setItem("token", JSON.stringify(response.data.token))
-                        localStorage.setItem("user", JSON.stringify(response.data.result[0].MaHS));
-                        history.push("/hocsinh")
+                    localStorage.setItem("token", JSON.stringify(response.data.token))
+                    localStorage.setItem("user", JSON.stringify(response.data.result[0].MaHS));
+                    history.push("/xemdiem")
                 }
             })
         }
         else {
-            setStatus("Không tìm thấy Username")
+            setStatus("Bạn cần nhập Username")
         }
     }
     return (
         <div>
+            <div className="tieude">
+                <h1>Trường Trung Học Phổ Thông PHẠM VĂN ĐỒNG</h1>
+            </div>
             <div className="bar">
                 <div className="Link">
                     <a href="/trangchu">Trang Chủ</a>

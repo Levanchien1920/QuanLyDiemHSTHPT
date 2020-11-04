@@ -47,7 +47,7 @@ const verifyJWTAdmin = (req, res, next) => {
         res.send ("token missing!!!")
     }
     else{
-        jwt.verify(token, "jwtSecret", (err, decode) =>{
+        jwt.verify(token, "jwtAdmin", (err, decode) =>{
             if(err){
                 res.json({ auth: false, message: "false"})
             }
@@ -73,7 +73,7 @@ app.post('/login/admin', (req, res) => {
         }
         if (result.length > 0){
             const id = result[0].ID
-            const token = jwt.sign({id}, "jwtSecret", {
+            const token = jwt.sign({id}, "jwtAdmin", {
                 expiresIn: 3600
             })
             res.json({auth: true, token: token, result: result})
@@ -100,7 +100,7 @@ const verifyJWTGV = (req, res, next) => {
         res.send ("token missing!!!")
     }
     else{
-        jwt.verify(token, "jwtSecret", (err, decode) =>{
+        jwt.verify(token, "jwtGV", (err, decode) =>{
             if(err){
                 res.json({ auth: false, message: "false"})
             }
@@ -126,7 +126,7 @@ app.post('/login/GV', (req, res) => {
         }
         if (result.length > 0){
             const id = result[0].MaGV
-            const token = jwt.sign({id}, "jwtSecret", {
+            const token = jwt.sign({id}, "jwtGV", {
                 expiresIn: 3600
             })
             res.json({auth: true, token: token, result: result})
@@ -153,7 +153,7 @@ const verifyJWTHS = (req, res, next) => {
         res.send ("token missing!!!")
     }
     else{
-        jwt.verify(token, "jwtSecret", (err, decode) =>{
+        jwt.verify(token, "jwtHS", (err, decode) =>{
             if(err){
                 res.json({ auth: false, message: "false"})
             }
@@ -179,7 +179,7 @@ app.post('/login/HS', (req, res) => {
         }
         if (result.length > 0){
             const id = result[0].MaHS
-            const token = jwt.sign({id}, "jwtSecret", {
+            const token = jwt.sign({id}, "jwtHS", {
                 expiresIn: 3600
             })
             res.json({auth: true, token: token, result: result})
