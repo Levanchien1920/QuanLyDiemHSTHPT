@@ -28,7 +28,7 @@ export default function MainPage() {
             <div className="Container">
                 {postList.map((val,key)=>{
                     return (
-                        <div className="post" key={key} onClick={()=>{history.replace(`/post/${val.id}`)}}>
+                        <div className="post" key={key} onClick={()=>{history.push(`/post/${val.id}`)}}>
                             <h1>{val.tieude}</h1>
                             <p>{val.tieude.length > 400 ? val.noidung.substring(0,400) : val.noidung}</p>
                         </div>

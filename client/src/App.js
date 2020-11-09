@@ -23,7 +23,7 @@ export default function App() {
           <Route path="/taothongbao" render={(props) => <TaoThongBao />} />  
           <Route path="/taohannhapdiem" render={(props) => <TaoHanNhapDiem />} /> 
           <Route path="/thoikhoabieu" render={(props) => <GiaoVien />} />
-          <Route path="/nhapdiem" render={(props) => <NhapDiem />} /> 
+          <Route path='/nhapdiem/:lopID' render={(props) => <NhapDiem />} /> 
           <Route path="/xemdiem" render={(props) => <HocSinh />} />
           <Route path="/phanhoi" render={(props) => <PhanHoi />} /> 
         </Switch>

@@ -19,13 +19,13 @@ body{
   font-size: 25px;
 }
 
-.Link a{
+.Link a, .Link .ul .li{
   margin: 10px;
   color: white;
   text-decoration: none;
 }
 
-.Link a:hover{
+.Link a:hover, .Link .ul .li:hover{
   cursor: pointer;
   color: yellow;
   font-weight: bold;
@@ -62,7 +62,7 @@ button{
   margin: 10px;
 }
 
-.MainPage{
+.TrangChu{
   display: flex;
   justify-content: center;
   height: 100%;

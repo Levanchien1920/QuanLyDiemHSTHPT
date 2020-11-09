@@ -139,9 +139,7 @@ app.post('/login/GV', (req, res) => {
 })
 
 app.put("/GV", (req, res) =>{
-//  const db2= "SELECT * FROM lop inner JOIN giaovien ON lop.MaGV=?";
-   const db1 ="SELECT * FROM tkb WHERE MaGV = ?"
-    db.query(db1, req.body.id , (err, result)=>{
+    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
         if(err){
             res.send({err:err})
         }
@@ -166,6 +164,28 @@ const verifyJWTHS = (req, res, next) => {
         })
     }
 }
+
+app.put("/getLop", (req, res) => {
+    const idgv = req.body.MaGV
+    db.query("SELECT * FROM lop WHERE MaGV = ?", idgv, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
+
+app.get("/LopFromMa/:ma", (req, res) => {
+    const id = req.params.ma
+    db.query("SELECT * FROM hocsinh WHERE MaLH = ?", id, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
 
 app.get("/auth/HS", verifyJWTHS, (req, res) =>{
     res.send ("OK")

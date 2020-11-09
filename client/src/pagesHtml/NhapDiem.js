@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css';
 import Axios from 'axios'
+import {useParams} from 'react-router-dom'
 export default function NhapDiem() {
     const [user, setUser] = useState("") 
     const [auth, setAuth] = useState("")
+    
+    let { lopID }= useParams();
     useEffect(() => {
         Axios.get("http://localhost:3001/auth/GV", {
             headers: {
@@ -17,6 +20,9 @@ export default function NhapDiem() {
                 setUser(response.data[0].Username)
             });
         }
+        });
+        Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((data)=>{
+            
         });
     });
     if (auth === "OK"){
