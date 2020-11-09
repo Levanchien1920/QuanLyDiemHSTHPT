@@ -139,7 +139,9 @@ app.post('/login/GV', (req, res) => {
 })
 
 app.put("/GV", (req, res) =>{
-    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
+//  const db2= "SELECT * FROM lop inner JOIN giaovien ON lop.MaGV=?";
+   const db1 ="SELECT * FROM tkb WHERE MaGV = ?"
+    db.query(db1, req.body.id , (err, result)=>{
         if(err){
             res.send({err:err})
         }
