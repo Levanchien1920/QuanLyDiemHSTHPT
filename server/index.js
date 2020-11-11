@@ -139,13 +139,28 @@ app.post('/login/GV', (req, res) => {
 })
 
 app.put("/GV", (req, res) =>{
-    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
+
+    const db1 ="SELECT * FROM tkb WHERE MaGV = ?"
+    db.query(db1, req.body.id , (err, result)=>{
         if(err){
             res.send({err:err})
         }
         res.send(result)
     })
 })
+
+
+app.get("/LopFromMa/:lopID", (req, res) => {
+    const lopID = req.params.lopID
+    console.log("lop:"+lopID)
+    db.query("SELECT * FROM hocsinh WHERE MaLH = ?", lopID, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
 
 const verifyJWTHS = (req, res, next) => {
     const token = req.headers["x-access-token"]

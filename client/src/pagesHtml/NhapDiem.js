@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css';
 import Axios from 'axios'
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 export default function NhapDiem() {
-    const [user, setUser] = useState("") 
+    const [user, setUser] = useState("")
     const [auth, setAuth] = useState("")
-    
-    let { lopID }= useParams();
+    const [hs, setHs] = useState([]);
+    let { lopID } = useParams();
     useEffect(() => {
         Axios.get("http://localhost:3001/auth/GV", {
             headers: {
@@ -14,32 +14,44 @@ export default function NhapDiem() {
             }
         }).then((data) => {
             setAuth(data.data)
-            if(auth === "OK"){
-            const temp = localStorage.getItem("user").split('"').join('')
-            Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
-                setUser(response.data[0].Username)
-            });
-        }
+            if (auth === "OK") {
+                const temp = localStorage.getItem("user").split('"').join('')
+                Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
+                    setUser(response.data[0].Username)
+                });
+            }
         });
-        Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((data)=>{
+        Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((response1) => {
             
+            setHs(response1.data)
+          
+
         });
     });
-    if (auth === "OK"){
-    return (
-        <div>
-        <div className="bar">
-            <div className="Link">
-                <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                <div style={{display: "inline-block"}}>Hi {user}</div>
-                <a href="/trangchu">Đăng Xuất</a>
+    if (auth === "OK") {
+        return (
+            <div>
+                <div className="bar">
+                    <div className="Link">
+                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
+                        <div style={{ display: "inline-block" }}>Hi {user}</div>
+                        <a href="/trangchu">Đăng Xuất</a>
+                    </div>
+                </div>
+               
+              
+
+
+
             </div>
-        </div>
-        </div>
-    )
+
+
+
+
+        )
     }
     else {
-        return(
+        return (
             <div>GET OUT </div>
         )
     }
