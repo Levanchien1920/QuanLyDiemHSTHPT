@@ -22,9 +22,8 @@ export default function NhapDiem() {
             }
         });
         Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((response1) => {
-            
             setHs(response1.data)
-          
+
 
         });
     });
@@ -38,8 +37,51 @@ export default function NhapDiem() {
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
-               
-              
+
+                <div>
+                    <div>
+                        <center>
+                        <table border="1">
+                            <tr>
+                                <td>Mã học sinh</td>
+                                <td>Họ và tên</td>
+                                <td>Điểm giữa kỳ</td>
+                                <td>Nhập điểm giữa kỳ</td>
+                                <td>Điểm cuối kỳ</td>
+                                <td>Nhập điểm cuối kỳ</td>
+                            </tr>
+
+                            {hs.map((val1, key1) => {
+                                return (
+
+                                   
+                                        <tr>
+                                            <td>{val1.MaHS}</td>
+                                            <td>{val1.Hoten}</td>
+                                            <td> </td>
+                                            <td> <input type="text" name="nhapdiemgk"></input></td>
+                                            <td></td>
+                                            <td> <input type="text" name="nhapdiemck"></input></td>
+                                            
+                                        </tr>
+                                
+                                )
+                              
+                            })}
+                              <tr> <button> Lưu </button></tr>
+
+                        </table>
+
+                
+                        </center>
+
+                        
+                    </div>
+                </div>
+
+
+
+
 
 
 
