@@ -140,8 +140,7 @@ app.post('/login/GV', (req, res) => {
 
 app.put("/GV", (req, res) =>{
 
-    const db1 ="SELECT * FROM tkb WHERE MaGV = ?"
-    db.query(db1, req.body.id , (err, result)=>{
+    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
         if(err){
             res.send({err:err})
         }
@@ -152,7 +151,6 @@ app.put("/GV", (req, res) =>{
 
 app.get("/LopFromMa/:lopID", (req, res) => {
     const lopID = req.params.lopID
-    console.log("lop:"+lopID)
     db.query("SELECT * FROM hocsinh WHERE MaLH = ?", lopID, (err, result) => {
         if (err) {
             console.log(err);

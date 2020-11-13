@@ -5,21 +5,26 @@ export default function TaoHanNHapDiem() {
 
     const [user, setUser] = useState("")
     const [auth, setAuth] = useState("")
-    useEffect(() => {
-        Axios.get("http://localhost:3001/auth/admin", {
-            headers: {
-                "x-access-token": JSON.parse(localStorage.getItem("token"))
-            }
-        }).then((data) => {
-            setAuth(data.data)
+    function Main() {
+        const [count, setCount] = useState(0)
+        useEffect(() => {
+            Axios.get("http://localhost:3001/auth/admin", {
+                headers: {
+                    "x-access-token": JSON.parse(localStorage.getItem("token"))
+                }
+            }).then((data) => {
+                setAuth(data.data)
+                setCount(1)
+            });
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
                 Axios.put("http://localhost:3001/admin", { id: temp }).then((response) => {
                     setUser(response.data[0].Username)
                 });
             }
-        });
-    });
+        }, [count]);
+    }
+    Main()
 
     if (auth === "OK") {
         return (
