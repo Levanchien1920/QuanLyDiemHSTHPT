@@ -30,7 +30,7 @@ export default function MainPage() {
                     return (
                         <div className="post" key={key} onClick={()=>{history.push(`/post/${val.id}`)}}>
                             <h1>{val.tieude}</h1>
-                            <p>{val.tieude.length > 400 ? val.noidung.substring(0,400) : val.noidung}</p>
+                            <p>{val.noidung.length > 400 ? val.noidung.substring(0,400) : val.noidung}</p>
                         </div>
                     )
                 })}
