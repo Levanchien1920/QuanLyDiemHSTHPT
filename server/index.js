@@ -138,8 +138,32 @@ app.post('/login/GV', (req, res) => {
     );
 })
 
-app.put("/GV", (req, res) =>{
+app.post('/luudiem', (req, res) => {
+    const diemHS=req.body.diemHS;
+    const vitri=req.body.vitri;
+    const id=req.body.id;
+    
+   
+    for (let index = 0; index < diemHS.length; index++) {
+        const element1 = diemHS[index];
+        console.log(element1)
+        const element2 = vitri[index];
+        console.log(element2)
+        db.query("UPDATE diemthi SET DiemGK = ? WHERE MaHS =  ? ", [element1,element2] , (err, result)=>{
+            console.log(result.affectedRows +" row upd");
+        })
+    }
 
+    db.query("SELECT * FROM diemthi WHERE MaGV = ?", id, (err, result)=>{
+        if(err){
+            res.send({err:err})
+        }
+        res.send(result)
+    })
+  
+})
+
+app.put("/GV", (req, res) =>{ console.log("magv:"+req.body.id);
     db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id , (err, result)=>{
         if(err){
             res.send({err:err})
