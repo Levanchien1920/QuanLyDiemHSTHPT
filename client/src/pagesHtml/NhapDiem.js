@@ -11,7 +11,7 @@ export default function NhapDiem() {
     let { lopID } = useParams();
     const [diemHS, setDiemHS] = useState([])
     const [vitri, setVitri] = useState([])
-    const updateFieldChanged = (index, ma) => (event) => {
+    const updateFieldChangedGK = (index, ma) => (event) => {
         let newArr = [...diemHS];
         newArr[index] = event.target.value;
         setDiemHS(newArr);
@@ -22,7 +22,7 @@ export default function NhapDiem() {
     console.log(diemHS)
     console.log(vitri)
 
-   
+
     function Main() {
         const [count, setCount] = useState(0)
         useEffect(() => {
@@ -47,16 +47,21 @@ export default function NhapDiem() {
         }, [count]);
     }
 
-    const enterMark = () => {
-        Axios.post('http://localhost:3001/luudiem', {diemHS: diemHS, vitri: vitri, id: id}).then((response) => {
+    const enterMarkGK = () => {
+        Axios.post('http://localhost:3001/luudiemGK', { diemHS: diemHS, vitri: vitri, id: id }).then((response) => {
             setMark(response.data[0])
-         })
-        }
+        })
+    }
+    const enterMarkCK = () => {
+        Axios.post('http://localhost:3001/luudiemCK', { diemHS: diemHS, vitri: vitri, id: id }).then((response) => {
+            setMark(response.data[0])
+        })
+    }
     Main()
 
-     //
-  
-//
+    //
+
+    //
     if (auth === "OK") {
         return (
             <div>
@@ -87,14 +92,15 @@ export default function NhapDiem() {
                                             <td>{val1.MaHS}</td>
                                             <td>{val1.Hoten}</td>
                                             <td>{mark.DiemGK}  </td>
-                                            <td> <input type="text" name="nhapdiemgk" onChange={updateFieldChanged(index, val1.MaHS)}></input></td>
+                                            <td> <input type="text" name="nhapdiemgk" onChange={updateFieldChangedGK(index, val1.MaHS)}></input></td>
                                             <td></td>
-                                            <td> <input type="text" name="nhapdiemck"></input></td>
+                                            <td> <input type="text" name="nhapdiemck"onChange={updateFieldChangedGK(index, val1.MaHS)}></input></td>
                                         </tr>
                                     )
                                 })}
-                                <tr> <button onClick={enterMark}> Lưu </button></tr>
 
+                                <tr> <button onClick={enterMarkGK}> Lưu điểm giữa kì</button></tr>
+                                <tr> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></tr>
                             </table>
 
 
