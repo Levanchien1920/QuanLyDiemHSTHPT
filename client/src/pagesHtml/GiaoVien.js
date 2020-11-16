@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Axios from 'axios'
 export default function GiaoVien() {
     const [user, setUser] = useState("")
+    const [name, setName] = useState("")
     const [auth, setAuth] = useState("")
     const [classList, setClass] = useState([]);
     let history = useHistory();
@@ -21,7 +22,8 @@ export default function GiaoVien() {
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
                 Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
-                    setUser(response.data[0].Hoten)
+                    setName(response.data[0].MaGV)
+                    setUser(response.data[0])
                 });
                 Axios.put("http://localhost:3001/getLop", { MaGV: temp }).then((response1) => {
                     setClass(response1.data)
@@ -46,7 +48,7 @@ export default function GiaoVien() {
                                 )
                             })}
                         </div>
-                        <div style={{ display: "inline-block" }}>Hi {user}</div>
+                        <div style={{ display: "inline-block" }}>Hi {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
