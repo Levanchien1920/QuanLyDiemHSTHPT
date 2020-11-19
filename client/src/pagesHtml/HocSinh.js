@@ -55,10 +55,10 @@ export default function XemDiem() {
                                     <td>Điểm cuối kỳ</td>
                                     <td>Điểm trung bình</td>
                                 </tr>
-                                {mh.map((val1, index) => {
+                                {mh.map((val1) => {
                                     return (
                                         <tr key={val1.MaMH}>
-                                             <td>{val1.TenMH}</td>
+                                            <td>{val1.TenMH}</td>
                                             <td>{val1.DiemGK}</td>
                                             <td>{val1.DiemCK}</td>
                                             <td></td>

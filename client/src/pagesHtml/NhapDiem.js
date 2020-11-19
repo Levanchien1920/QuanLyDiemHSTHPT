@@ -11,20 +11,28 @@ export default function NhapDiem() {
     const [hs, setHs] = useState([]);
     let { lopID } = useParams();
     let history = useHistory();
-    const [diemHS, setDiemHS] = useState([])
-    const [vitri, setVitri] = useState([])
+    const [diemGK, setDiemGK] = useState([])
+    const [diemCK, setDiemCK] = useState([])
+    const [vitriGK, setVitriGK] = useState([])
+    const [vitriCK, setVitriCK] = useState([])
     const [classList, setClass] = useState([]);
-    const updateFieldChanged = (index, ma) => (event) => {
-        let newArr = [...diemHS];
+    const updateFieldChanged1 = (index, ma) => (event) => {
+        let newArr = [...diemGK];
         newArr[index] = event.target.value;
-        setDiemHS(newArr);
-        let newA = [...vitri];
+        setDiemGK(newArr);
+        let newA = [...vitriGK];
         newA[index] = ma;
-        setVitri(newA)
+        setVitriGK(newA)
     }
-   
-    console.log(diemHS)
-    console.log(vitri)
+    const updateFieldChanged2 = (index, ma) => (event) => {
+        let newArr = [...diemCK];
+        newArr[index] = event.target.value;
+        setDiemCK(newArr);
+        let newA = [...vitriCK];
+        newA[index] = ma;
+        setVitriCK(newA)
+    }
+
 
     function Main() {
         
@@ -52,13 +60,14 @@ export default function NhapDiem() {
             Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((response1) => {
                 setHs(response1.data)
             });
+           
 
         }, [count]);
     }
     console.log("lop:"+lopID);
 
     const enterMarkGK = () => {
-        Axios.post('http://localhost:3001/luudiemGK', {diemHS: diemHS, vitri: vitri,malop: lopID ,id:id}).then((response) => {
+        Axios.post('http://localhost:3001/luudiemGK', {diemHS: diemGK, vitri: vitriGK,malop: lopID ,id:id}).then((response) => {
             setMark(response.data)
          });
     }
@@ -70,7 +79,7 @@ export default function NhapDiem() {
         }
     }
     const enterMarkCK = () => {
-        Axios.post('http://localhost:3001/luudiemCK', {diemHS: diemHS, vitri: vitri,malop: lopID ,id:id}).then((response) => {
+        Axios.post('http://localhost:3001/luudiemCK', {diemHS: diemCK, vitri: vitriCK,malop: lopID ,id:id}).then((response) => {
             setMark(response.data)
          });
     }
@@ -128,9 +137,9 @@ export default function NhapDiem() {
                                             <td>{val1.MaHS}</td>
                                             <td>{val1.Hoten}</td>
                                             <td> {OutGK(index)} </td>
-                                            <td> <input type="text" name="nhapdiemgk" onChange={updateFieldChanged(index, val1.MaHS)}></input></td>
+                                            <td> <input type="text" name="nhapdiemgk" onChange={updateFieldChanged1(index, val1.MaHS)}></input></td>
                                             <td>{OutCK(index)}</td>
-                                            <td> <input type="text" name="nhapdiemck"onChange={updateFieldChanged(index, val1.MaHS)}></input></td>
+                                            <td> <input type="text" name="nhapdiemck"onChange={updateFieldChanged2(index, val1.MaHS)}></input></td>
                                         </tr>
                                     )
                                 })}

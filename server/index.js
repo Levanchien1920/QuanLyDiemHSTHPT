@@ -291,24 +291,17 @@ app.put("/HS", (req, res) => {
     })
 })
 app.get("/MonFromMa/:mon", (req, res) => {
-    const maMH = req.params.maMH
-    db.query("SELECT * FROM monhoc WHERE 1 ", maMH, (err, result) => {
+    const ma = req.params.mon
+    db.query("SELECT diemthi.DiemGK, diemthi.DiemCK, monhoc.TenMH FROM ((diemthi INNER JOIN giaovien ON diemthi.MaGV = giaovien.MaGV) INNER JOIN monhoc ON monhoc.MaMH = giaovien.MaMH) WHERE diemthi.MaHS = ?", ma, (err, result) => {
         if (err) {
             console.log(err);
         }
+        console.log(result)
         res.send(result)
     }
     );
 });
-app.put("/xemdiem", (req, res) => {
-    const maHS = req.body.MaHS
-    db.query("SELECT * FROM diemthi WHERE MaHS = ?", maHS, (err, result) => {
-        if (err) {
-            res.send({ err: err })
-        }
-        res.send(result)
-    })
-})
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
