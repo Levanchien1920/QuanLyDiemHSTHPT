@@ -41,6 +41,37 @@ app.post("/create", (req, res) => {
     }
     );
 })
+app.post("/createFeedback", (req, res) => {
+    const subject = req.body.subject;
+    const text = req.body.text;
+    db.query("INSERT INTO phanhoi (monhoc, noidung) VALUES (?,?)", [subject, text], (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        console.log(result);
+    }
+    );
+})
+app.get("/get", (req, res) => {
+    db.query("SELECT * FROM phanhoi", (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
+
+app.get("/getFromID/:id", (req, res) => {
+    const id = req.params.id
+    db.query("SELECT * FROM phanhoi WHERE id = ?", id, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        res.send(result)
+    }
+    );
+});
 
 const verifyJWTAdmin = (req, res, next) => {
     const token = req.headers["x-access-token"]
