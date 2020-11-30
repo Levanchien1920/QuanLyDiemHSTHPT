@@ -9,6 +9,7 @@ import GiaoVien from './pagesHtml/GiaoVien'
 import NhapDiem from './pagesHtml/NhapDiem'
 import HocSinh from './pagesHtml/HocSinh'
 import PhanHoi from './pagesHtml/PhanHoi'
+import XemPhanHoi from './pagesHtml/Xemphanhoi'
 import './App.css';
 
 export default function App() {
@@ -25,7 +26,8 @@ export default function App() {
           <Route path="/thoikhoabieu" render={(props) => <GiaoVien />} />
           <Route path='/nhapdiem/:lopID' render={(props) => <NhapDiem />} /> 
           <Route path="/xemdiem" render={(props) => <HocSinh />} />
-          <Route path="/phanhoi" render={(props) => <PhanHoi />} /> 
+          <Route path="/phanhoi" render={(props) => <PhanHoi />} />
+          <Route path="/xemphanhoi" render={(props) => <XemPhanHoi />} /> 
         </Switch>
         </Router>
     </>

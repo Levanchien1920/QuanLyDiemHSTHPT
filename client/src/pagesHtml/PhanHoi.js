@@ -4,6 +4,7 @@ import Axios from 'axios'
 export default function PhanHoi() {
     const [subject, setSubject] = useState("");
     const [text, setText] = useState("");
+    const [maHS, setMaHS] = useState("");
     const [user, setUser] = useState("")
     const [auth, setAuth] = useState("")
     function Main() {
@@ -20,6 +21,7 @@ export default function PhanHoi() {
             });
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
+                setMaHS(temp)
                 Axios.put("http://localhost:3001/HS", { id: temp }).then((response) => {
                     setUser(response.data[0].Username)
                 });
@@ -28,7 +30,7 @@ export default function PhanHoi() {
     }
     Main()
     const submitfeedback = () => {
-        Axios.post('http://localhost:3001/createFeedback', { subject: subject, text: text })
+        Axios.post('http://localhost:3001/createFeedback', { subject: subject, text: text, maHS: maHS })
     };
 
     if (auth === "OK") {

@@ -24,7 +24,8 @@ export default function GiaoVien() {
                 Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
                     setName(response.data[0].MaGV)
                     setUser(response.data[0])
-                });
+             });
+               
                 Axios.put("http://localhost:3001/getLop", { MaGV: temp }).then((response1) => {
                     setClass(response1.data)
                 })
@@ -45,10 +46,12 @@ export default function GiaoVien() {
                                     <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
                                         <div>{val.TenLop}</div>
                                     </div>
+        
                                 )
                             })}
                         </div>
                         <div style={{ display: "inline-block" }}>Hi {name}</div>
+                        <a href="/xemphanhoi">Xem phản hồi</a>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>

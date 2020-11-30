@@ -44,7 +44,8 @@ app.post("/create", (req, res) => {
 app.post("/createFeedback", (req, res) => {
     const subject = req.body.subject;
     const text = req.body.text;
-    db.query("INSERT INTO phanhoi (monhoc, noidung) VALUES (?,?)", [subject, text], (err, result) => {
+    const maHS= req.body.maHS;
+    db.query("INSERT INTO phanhoi (monhoc, noidung,MaHS) VALUES (?,?,?)", [subject, text, maHS], (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -52,8 +53,8 @@ app.post("/createFeedback", (req, res) => {
     }
     );
 })
-app.get("/get", (req, res) => {
-    db.query("SELECT * FROM phanhoi", (err, result) => {
+app.get("/getFeedback", (req, res) => {
+    db.query("SELECT noidung FROM phanhoi where id = ?", req.body.id, (err, result) => {
         if (err) {
             console.log(err);
         }
@@ -62,13 +63,14 @@ app.get("/get", (req, res) => {
     );
 });
 
-app.get("/getFromID/:id", (req, res) => {
+app.get("/getFromIDFeedback/:id", (req, res) => {
     const id = req.params.id
-    db.query("SELECT * FROM phanhoi WHERE id = ?", id, (err, result) => {
+    db.query("SELECT hocsinh.MaHS, hocsinh.Hoten,lop.TenLop, phanhoi.noidung FROM ((hocsinh INNER JOIN lop ON hocsinh.MaLH = lop.MaLH) INNER JOIN phanhoi ON phanhoi.MaHS = hocsinh.MaHS) WHERE phanhoi.id = ?", id, (err, result) => {
         if (err) {
             console.log(err);
         }
         res.send(result)
+        console.log(result)
     }
     );
 });
