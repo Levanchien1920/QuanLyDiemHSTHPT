@@ -22,10 +22,12 @@ export default function GiaoVien() {
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
                 Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
-                    setName(response.data[0].MaGV)
+                    setName(response.data[0].Hoten)
+                });
+
+                Axios.put("http://localhost:3001/tkbGV", { id: temp }).then((response) => {
                     setUser(response.data[0])
-             });
-               
+                });
                 Axios.put("http://localhost:3001/getLop", { MaGV: temp }).then((response1) => {
                     setClass(response1.data)
                 })
@@ -46,19 +48,18 @@ export default function GiaoVien() {
                                     <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
                                         <div>{val.TenLop}</div>
                                     </div>
-        
+
                                 )
                             })}
                         </div>
-                        <div style={{ display: "inline-block" }}>Hi {name}</div>
                         <a href="/xemphanhoi">Xem phản hồi</a>
+                        <div style={{ display: "inline-block" }}>GV {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
 
                 <div className="see">
                     <center>
-
                         <table border="1">
                             <tr>
                                 <td></td>
@@ -122,18 +123,10 @@ export default function GiaoVien() {
                                 <td>{user.Thu7Tiet4}</td>
                                 <td>{user.Thu7Tiet5}</td>
                             </tr>
-
-
-
-
                         </table>
-
                     </center>
-
-
                 </div>
             </div>
-
         )
     }
     else {

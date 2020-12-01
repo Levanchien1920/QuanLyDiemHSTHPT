@@ -29,6 +29,7 @@ export default function CreatePost() {
     Main()
     const submitpost = () => {
         Axios.post('http://localhost:3001/create', { title: title, text: text })
+        window.location.reload()
     };
 
     if (auth === "OK") {

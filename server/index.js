@@ -3,7 +3,6 @@ const db = require("./config/db");
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const { response } = require('express');
 const PORT = 3001;
 
 app.use(cors());
@@ -37,7 +36,6 @@ app.post("/create", (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(result);
     }
     );
 })
@@ -49,28 +47,17 @@ app.post("/createFeedback", (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(result);
     }
     );
 })
-app.get("/getFeedback", (req, res) => {
-    db.query("SELECT noidung FROM phanhoi where id = ?", req.body.id, (err, result) => {
+app.put("/getFeedback", (req, res) => {
+    const MaGV = req.body.MaGV
+    const MaMH = req.body.MaMH
+    db.query("SELECT hocsinh.MaHS, hocsinh.Hoten, lop.TenLop, phanhoi.noidung FROM ((lop INNER JOIN hocsinh ON lop.MaLH = hocsinh.MaLH)  INNER JOIN phanhoi ON phanhoi.MaHS = hocsinh.MaHS) WHERE (lop.MaGV = ? AND phanhoi.monhoc = ?)", [MaGV, MaMH], (err, result) => {
         if (err) {
             console.log(err);
         }
         res.send(result)
-    }
-    );
-});
-
-app.get("/getFromIDFeedback/:id", (req, res) => {
-    const id = req.params.id
-    db.query("SELECT hocsinh.MaHS, hocsinh.Hoten,lop.TenLop, phanhoi.noidung FROM ((hocsinh INNER JOIN lop ON hocsinh.MaLH = lop.MaLH) INNER JOIN phanhoi ON phanhoi.MaHS = hocsinh.MaHS) WHERE phanhoi.id = ?", id, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        res.send(result)
-        console.log(result)
     }
     );
 });
@@ -177,16 +164,10 @@ app.post('/luudiemGK', (req, res) => {
     const vitri = req.body.vitri;
     const malop = req.body.malop;
     const idgv = req.body.id;
-    console.log("mallll:" + malop);
-
-
     for (let index = 0; index < diemHS.length; index++) {
         const element1 = diemHS[index];
-        console.log(element1)
         const element2 = vitri[index];
-        console.log(element2)
-        db.query("UPDATE diemthi SET DiemGK = ? WHERE MaHS =  ? ", [element1, element2], (err, result) => {
-            console.log(result.affectedRows + " row upd");
+        db.query("UPDATE diemthi SET DiemGK = ? WHERE MaHS =  ? AND MaGV = ?", [element1, element2, idgv], (err, result) => {
         })
     }
 
@@ -195,7 +176,6 @@ app.post('/luudiemGK', (req, res) => {
             res.send({ err: err })
         }
         res.send(result)
-        console.log(result)
     })
 
 })
@@ -204,16 +184,10 @@ app.post('/luudiemCK', (req, res) => {
     const vitri = req.body.vitri;
     const malop = req.body.malop;
     const idgv = req.body.id;
-    console.log("mallll:" + malop);
-
-
     for (let index = 0; index < diemHS.length; index++) {
         const element1 = diemHS[index];
-        console.log(element1)
         const element2 = vitri[index];
-        console.log(element2)
-        db.query("UPDATE diemthi SET DiemCK = ? WHERE MaHS =  ? ", [element1, element2], (err, result) => {
-            console.log(result.affectedRows + " row upd");
+        db.query("UPDATE diemthi SET DiemCK = ? WHERE MaHS =  ? AND MaGV = ?", [element1, element2, idgv], (err, result) => {
         })
     }
 
@@ -222,14 +196,11 @@ app.post('/luudiemCK', (req, res) => {
             res.send({ err: err })
         }
         res.send(result)
-        console.log(result)
     })
-
 })
 
 app.put("/GV", (req, res) => {
-    console.log("magv:" + req.body.id);
-    db.query("SELECT * FROM tkb WHERE MaGV = ?", req.body.id, (err, result) => {
+    db.query("SELECT * FROM giaovien WHERE MaGV = ?", req.body.id, (err, result) => {
         if (err) {
             res.send({ err: err })
         }
@@ -237,6 +208,14 @@ app.put("/GV", (req, res) => {
     })
 })
 
+app.put("/tkbGV", (req, res) => {
+    db.query("SELECT * FROM tkb WHERE MaGV = ?", req.body.id, (err, result) => {
+        if (err) {
+            res.send({ err: err })
+        }
+        res.send(result)
+    })
+})
 
 app.get("/LopFromMa/:lopID", (req, res) => {
     const lopID = req.params.lopID
@@ -329,12 +308,31 @@ app.get("/MonFromMa/:mon", (req, res) => {
         if (err) {
             console.log(err);
         }
-        console.log(result)
         res.send(result)
     }
     );
 });
 
+app.post("/khoagk", (req, res) => {
+    const khoa = req.body.khoa
+    db.query("UPDATE han SET gk = ?", [khoa], (err, result) => {
+    })
+});
+
+app.post("/khoack", (req, res) => {
+    const khoa = req.body.khoa
+    db.query("UPDATE han SET ck = ?", [khoa], (err, result) => {
+    })
+});
+
+app.get("/layhan", (req, res) => {
+    db.query("SELECT * FROM han", (err, result) => {
+        if (err) {
+            res.send({ err: err })
+        }
+        res.send(result)
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

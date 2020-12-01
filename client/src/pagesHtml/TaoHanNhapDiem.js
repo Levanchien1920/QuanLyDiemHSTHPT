@@ -24,6 +24,18 @@ export default function TaoHanNHapDiem() {
             }
         }, [count]);
     }
+    const Khoagk = () =>{
+        Axios.post("http://localhost:3001/khoagk", {khoa: 1})
+    }
+    const Mogk = () =>{
+        Axios.post("http://localhost:3001/khoagk", {khoa: 0})
+    }
+    const Khoack = () =>{
+        Axios.post("http://localhost:3001/khoack", {khoa: 1})
+    }
+    const Mock = () =>{
+        Axios.post("http://localhost:3001/khoack", {khoa: 0})
+    }
     Main()
 
     if (auth === "OK") {
@@ -35,6 +47,16 @@ export default function TaoHanNHapDiem() {
                         <a href="/hannhapdiem"> Tạo Hạn Nhập Điểm</a>
                         <div style={{ display: "inline-block" }}>Hi {user}</div>
                         <a href="/trangchu">Đăng Xuất</a>
+                    </div>
+                </div>
+                <div>
+                    <div style={{ marginLeft: "35%", fontSize:"20px"}}>
+                    <div style={{ width: "170px", display: "inline-block"}}>Khóa điểm giữa kì:</div>
+                    <div style={{ display: "inline-block", marginLeft: "40px"}}> <button onClick={Khoagk}>  Khóa giữa kì </button></div>
+                    <div style={{ display: "inline-block"}}> <button onClick={Mogk}> Mở giữa kì </button></div><br></br>
+                    <div style={{ width: "170px", display: "inline-block"}}>Khóa điểm cuối kì:</div>
+                    <div style={{ display: "inline-block", marginLeft: "40px"}}> <button onClick={Khoack}>  Khóa cuối kì </button></div>
+                    <div style={{ display: "inline-block"}}> <button onClick={Mock}> Mở cuối kì </button></div>
                     </div>
                 </div>
             </div>

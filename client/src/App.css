@@ -32,7 +32,7 @@ body{
   text-decoration-line: underline;
 }
 
-.CreatePost, .Loginpage{
+.CreatePost, .Loginpage, .CreateFeedback{
   display: flex;
   justify-content: center;
   align-items: center;

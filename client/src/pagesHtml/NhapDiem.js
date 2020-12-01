@@ -3,11 +3,12 @@ import '../App.css';
 import Axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom'
 export default function NhapDiem() {
-    const [user, setUser] = useState("")
+
     const [name, setName] = useState("")
-    const [id, setId] = useState("")
     const [mark, setMark] = useState("")
     const [auth, setAuth] = useState("")
+    const [gk, setGK] = useState(0)
+    const [ck, setCK] = useState(0)
     const [hs, setHs] = useState([]);
     let { lopID } = useParams();
     let history = useHistory();
@@ -17,25 +18,37 @@ export default function NhapDiem() {
     const [vitriCK, setVitriCK] = useState([])
     const [classList, setClass] = useState([]);
     const updateFieldChanged1 = (index, ma) => (event) => {
-        let newArr = [...diemGK];
-        newArr[index] = event.target.value;
-        setDiemGK(newArr);
-        let newA = [...vitriGK];
-        newA[index] = ma;
-        setVitriGK(newA)
+        var n = parseFloat(event.target.value);
+        if (n < 0 || n > 10) {
+            alert('Nhập sai điểm');
+            event.target.value = "";
+        }
+        else {
+            let newArr = [...diemGK];
+            newArr[index] = event.target.value;
+            setDiemGK(newArr);
+            let newA = [...vitriGK];
+            newA[index] = ma;
+            setVitriGK(newA)
+        }
     }
     const updateFieldChanged2 = (index, ma) => (event) => {
-        let newArr = [...diemCK];
-        newArr[index] = event.target.value;
-        setDiemCK(newArr);
-        let newA = [...vitriCK];
-        newA[index] = ma;
-        setVitriCK(newA)
+        var n = parseFloat(event.target.value);
+        if (n < 0 || n > 10) {
+            alert('Nhập sai điểm');
+            event.target.value = "";
+        }
+        else {
+            let newArr = [...diemCK];
+            newArr[index] = event.target.value;
+            setDiemCK(newArr);
+            let newA = [...vitriCK];
+            newA[index] = ma;
+            setVitriCK(newA)
+        }
     }
 
-
     function Main() {
-        
         const [count, setCount] = useState(0)
         useEffect(() => {
             Axios.get("http://localhost:3001/auth/GV", {
@@ -49,71 +62,64 @@ export default function NhapDiem() {
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
                 Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
-                    setName(response.data[0].MaGV)
-                    setUser(response.data[0])
-                    setId(response.data[0].MaGV)
+                    setName(response.data[0].Hoten)
                 });
                 Axios.put("http://localhost:3001/getLop", { MaGV: temp }).then((response2) => {
                     setClass(response2.data)
-            })
+                });
             }
             Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((response1) => {
                 setHs(response1.data)
             });
-           
+            Axios.get("http://localhost:3001/layhan").then((response) => {
+                setGK(response.data[0].gk)
+                setCK(response.data[0].ck)
+            });
 
         }, [count]);
     }
-    console.log("lop:"+lopID);
-
     const enterMarkGK = () => {
-        Axios.post('http://localhost:3001/luudiemGK', {diemHS: diemGK, vitri: vitriGK,malop: lopID ,id:id}).then((response) => {
+        Axios.post('http://localhost:3001/luudiemGK', { diemHS: diemGK, vitri: vitriGK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
             setMark(response.data)
-         });
+        });
     }
-    function OutGK(index){
+    function OutGK(index) {
         for (let i = 0; i < mark.length; i++) {
-            if (i === index){
+            if (i === index) {
                 return mark[i].DiemGK;
             }
         }
     }
     const enterMarkCK = () => {
-        Axios.post('http://localhost:3001/luudiemCK', {diemHS: diemCK, vitri: vitriCK,malop: lopID ,id:id}).then((response) => {
+        Axios.post('http://localhost:3001/luudiemCK', { diemHS: diemCK, vitri: vitriCK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
             setMark(response.data)
-         });
+        });
     }
-    function OutCK(index){
+    function OutCK(index) {
         for (let i = 0; i < mark.length; i++) {
-            if (i === index){
+            if (i === index) {
                 return mark[i].DiemCK;
             }
         }
     }
-    
-   
-
     Main()
-
-     //
-  
-//
-    if (auth === "OK") {
+    if (auth === "OK" & gk === 0 & ck === 0) {
         return (
             <div>
                 <div className="bar">
                     <div className="Link">
-                    <a href="/thoikhoabieu">Thời Khóa Biểu</a>
+                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
                         <div className="ul" style={{ display: "inline-block" }}>
                             {classList.map((val, key) => {
                                 return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
                                         <div>{val.TenLop}</div>
                                     </div>
                                 )
                             })}
                         </div>
-                        <div style={{ display: "inline-block" }}>Hi {name}</div>
+                        <a href="/xemphanhoi">Xem phản hồi</a>
+                        <div style={{ display: "inline-block" }}>GV {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
@@ -137,20 +143,172 @@ export default function NhapDiem() {
                                             <td>{val1.MaHS}</td>
                                             <td>{val1.Hoten}</td>
                                             <td> {OutGK(index)} </td>
-                                            <td> <input type="text" name="nhapdiemgk" onChange={updateFieldChanged1(index, val1.MaHS)}></input></td>
+                                            <td> <input type="number" min="0" max="10" name="nhapdiemgk" onChange={updateFieldChanged1(index, val1.MaHS)}></input></td>
                                             <td>{OutCK(index)}</td>
-                                            <td> <input type="text" name="nhapdiemck"onChange={updateFieldChanged2(index, val1.MaHS)}></input></td>
+                                            <td> <input type="number" min="0" max="10" name="nhapdiemck" onChange={updateFieldChanged2(index, val1.MaHS)}></input></td>
                                         </tr>
                                     )
                                 })}
-                                <div style={{ display: "inline-block" }}> <button  onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
-                                <div style={{ display: "inline-block" }}> <button  onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    if (auth === "OK" & gk === 1 & ck === 0) {
+        return (
+            <div>
+                <div className="bar">
+                    <div className="Link">
+                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
+                        <div className="ul" style={{ display: "inline-block" }}>
+                            {classList.map((val, key) => {
+                                return (
+                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
+                                        <div>{val.TenLop}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <a href="/xemphanhoi">Xem phản hồi</a>
+                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <a href="/trangchu">Đăng Xuất</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <center>
+                            <table border="1">
+                                <tr>
+                                    <td>Mã học sinh</td>
+                                    <td>Họ và tên</td>
+                                    <td>Điểm giữa kỳ</td>
+                                    <td>Điểm cuối kỳ</td>
+                                    <td>Nhập điểm cuối kỳ</td>
+                                </tr>
+
+                                {hs.map((val1, index) => {
+                                    return (
+                                        <tr key={val1.MaHS}>
+                                            <td>{val1.MaHS}</td>
+                                            <td>{val1.Hoten}</td>
+                                            <td> {OutGK(index)} </td>
+                                            <td>{OutCK(index)}</td>
+                                            <td> <input type="number" min="0" max="10" name="nhapdiemck" onChange={updateFieldChanged2(index, val1.MaHS)}></input></td>
+                                        </tr>
+                                    )
+                                })}
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    if (auth === "OK" & gk === 0 & ck === 1) {
+        return (
+            <div>
+                <div className="bar">
+                    <div className="Link">
+                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
+                        <div className="ul" style={{ display: "inline-block" }}>
+                            {classList.map((val, key) => {
+                                return (
+                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
+                                        <div>{val.TenLop}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <a href="/xemphanhoi">Xem phản hồi</a>
+                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <a href="/trangchu">Đăng Xuất</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <center>
+                            <table border="1">
+                                <tr>
+                                    <td>Mã học sinh</td>
+                                    <td>Họ và tên</td>
+                                    <td>Điểm giữa kỳ</td>
+                                    <td>Nhập điểm giữa kỳ</td>
+                                    <td>Điểm cuối kỳ</td>
+                                </tr>
+
+                                {hs.map((val1, index) => {
+                                    return (
+                                        <tr key={val1.MaHS}>
+                                            <td>{val1.MaHS}</td>
+                                            <td>{val1.Hoten}</td>
+                                            <td> {OutGK(index)} </td>
+                                            <td> <input type="number" min="0" max="10" name="nhapdiemgk" onChange={updateFieldChanged1(index, val1.MaHS)}></input></td>
+                                            <td>{OutCK(index)}</td>
+                                        </tr>
+                                    )
+                                })}
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    if (auth === "OK" & gk === 1 & ck === 1) {
+        return (
+            <div>
+                <div className="bar">
+                    <div className="Link">
+                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
+                        <div className="ul" style={{ display: "inline-block" }}>
+                            {classList.map((val, key) => {
+                                return (
+                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
+                                        <div>{val.TenLop}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <a href="/xemphanhoi">Xem phản hồi</a>
+                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <a href="/trangchu">Đăng Xuất</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <center>
+                            <table border="1">
+                                <tr>
+                                    <td>Mã học sinh</td>
+                                    <td>Họ và tên</td>
+                                    <td>Điểm giữa kỳ</td>
+                                    <td>Điểm cuối kỳ</td>
+                                </tr>
+
+                                {hs.map((val1, index) => {
+                                    return (
+                                        <tr key={val1.MaHS}>
+                                            <td>{val1.MaHS}</td>
+                                            <td>{val1.Hoten}</td>
+                                            <td> {OutGK(index)} </td>
+                                            <td>{OutCK(index)}</td>
+                                        </tr>
+                                    )
+                                })}
 
                             </table>
                         </center>
                     </div>
                 </div>
-
             </div>
         )
     }

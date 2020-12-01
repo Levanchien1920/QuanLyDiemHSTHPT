@@ -17,13 +17,12 @@ export default function PhanHoi() {
             }).then((data) => {
                 setAuth(data.data)
                 setCount(1)
-
             });
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
                 setMaHS(temp)
                 Axios.put("http://localhost:3001/HS", { id: temp }).then((response) => {
-                    setUser(response.data[0].Username)
+                    setUser(response.data[0].Hoten)
                 });
             }
         }, [count]);
@@ -31,6 +30,7 @@ export default function PhanHoi() {
     Main()
     const submitfeedback = () => {
         Axios.post('http://localhost:3001/createFeedback', { subject: subject, text: text, maHS: maHS })
+        window.location.reload()
     };
 
     if (auth === "OK") {
@@ -47,6 +47,8 @@ export default function PhanHoi() {
                 <div className="CreateFeedback">
                     <div className="upload">
                         <label>Subject</label>
+                        <div style={{color: "black", fontSize: "17px"}}>Nhập mã môn tương ứng: (Toán: MH01, Lý: MH02, Hóa: MH03, Sinh: MH04
+                        Sử: MH05, Địa: MH06, Anh: MH07, Văn: MH08, GDCD: MH09, Công nghệ: MH10, Thể dục: MH11)</div>
                         <input type="text" onChange={(e) => { setSubject(e.target.value) }} />
                         <label>Content</label>
                         <input type="textarea" onChange={(e) => { setText(e.target.value) }} />
