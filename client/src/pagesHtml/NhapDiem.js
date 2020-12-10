@@ -114,13 +114,13 @@ export default function NhapDiem() {
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
 
-                    <div className='clear'><a></a></div>
+                    <div className='clear'></div>
 
                     <div id='nhapdiem'>
                         <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
                         {classList.map((val, key) => {
                             return (
-                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                <div className="nhapdiem_mon" key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
                                     {val.TenLop}
                                 </div>
                             )
@@ -176,13 +176,13 @@ export default function NhapDiem() {
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
 
-                    <div className='clear'><a></a></div>
+                    <div className='clear'></div>
 
                     <div id='nhapdiem'>
                         <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
                         {classList.map((val, key) => {
                             return (
-                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                <div className="nhapdiem_mon" key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
                                     {val.TenLop}
                                 </div>
                             )
@@ -236,13 +236,13 @@ export default function NhapDiem() {
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
 
-                    <div className='clear'><a></a></div>
+                    <div className='clear'></div>
 
                     <div id='nhapdiem'>
                         <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
                         {classList.map((val, key) => {
                             return (
-                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                <div className="nhapdiem_mon" key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
                                     {val.TenLop}
                                 </div>
                             )
@@ -295,13 +295,13 @@ export default function NhapDiem() {
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
 
-                    <div className='clear'><a></a></div>
+                    <div className='clear'></div>
 
                     <div id='nhapdiem'>
                         <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
                         {classList.map((val, key) => {
                             return (
-                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                <div className="nhapdiem_mon" key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
                                     {val.TenLop}
                                 </div>
                             )
