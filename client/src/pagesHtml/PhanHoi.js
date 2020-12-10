@@ -37,22 +37,27 @@ export default function PhanHoi() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
-                        <a href="/xemdiem">Xem Điểm</a>
-                        <a href="/phanhoi">Phản Hồi</a>
-                        <div style={{ display: "inline-block" }}>Hi {user}</div>
+                <div className="Link">
+                    <h2>TRƯỜNG THPT PHẠM VĂN ĐỒNG</h2>                    
+                    <div id='barright'>
+                        <a href="/xemdiem">Xem điểm</a>
+                        <div id='real_name'>{user}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
-                <div className="CreateFeedback">
-                    <div className="upload">
-                        <label>Subject</label>
-                        <div style={{color: "black", fontSize: "17px"}}>Nhập mã môn tương ứng: (Toán: MH01, Lý: MH02, Hóa: MH03, Sinh: MH04
-                        Sử: MH05, Địa: MH06, Anh: MH07, Văn: MH08, GDCD: MH09, Công nghệ: MH10, Thể dục: MH11)</div>
-                        <input type="text" onChange={(e) => { setSubject(e.target.value) }} />
-                        <label>Content</label>
-                        <input type="textarea" onChange={(e) => { setText(e.target.value) }} />
-                        <button onClick={submitfeedback}> Submit Feedback </button>
+            </div>
+                <div className="Loginpage">
+                    <div className="Loginform">                        
+                        <input type="text" placeholder="Mã môn học" onChange={(e) => { setSubject(e.target.value) }} />
+                        <input type="textarea" placeholder="Ý kiến phản hồi" onChange={(e) => { setText(e.target.value) }} />
+                        <div id="subbutton">
+                            <button onClick={submitfeedback}> Phản hồi </button>
+                        </div>                        
+                    </div>
+                    <br></br>
+                    <div className='post_comment'>
+                        <p className='post_tieude'>Nhập mã môn tương ứng:</p>
+                        <p className='post_noidung'>Toán:MH01; Lý:MH02; Hóa:MH03; Sinh:MH04; Sử:MH05; Địa:MH06; Anh:MH07; Văn:MH08; GDCD:MH09; Công nghệ:MH10; Thể dục:MH11</p>
                     </div>
                 </div>
             </div>

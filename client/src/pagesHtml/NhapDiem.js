@@ -107,21 +107,25 @@ export default function NhapDiem() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
+                    <div id='barright'>
                         <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-                                )
-                            })}
-                        </div>
                         <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
 
                 <div>
@@ -129,12 +133,12 @@ export default function NhapDiem() {
                         <center>
                             <table border="1">
                                 <tr>
-                                    <td>Mã học sinh</td>
-                                    <td>Họ và tên</td>
-                                    <td>Điểm giữa kỳ</td>
-                                    <td>Nhập điểm giữa kỳ</td>
-                                    <td>Điểm cuối kỳ</td>
-                                    <td>Nhập điểm cuối kỳ</td>
+                                    <th>Mã học sinh</th>
+                                    <th>Họ và tên</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Nhập điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
+                                    <th>Nhập điểm cuối kỳ</th>
                                 </tr>
 
                                 {hs.map((val1, index) => {
@@ -149,9 +153,12 @@ export default function NhapDiem() {
                                         </tr>
                                     )
                                 })}
+                                
+                            </table>
+                            <div id='subbutton'>
                                 <div style={{ display: "inline-block" }}> <button onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
                                 <div style={{ display: "inline-block" }}> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
-                            </table>
+                            </div>
                         </center>
                     </div>
                 </div>
@@ -162,21 +169,25 @@ export default function NhapDiem() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
+                    <div id='barright'>
                         <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-                                )
-                            })}
-                        </div>
                         <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
 
                 <div>
@@ -184,11 +195,11 @@ export default function NhapDiem() {
                         <center>
                             <table border="1">
                                 <tr>
-                                    <td>Mã học sinh</td>
-                                    <td>Họ và tên</td>
-                                    <td>Điểm giữa kỳ</td>
-                                    <td>Điểm cuối kỳ</td>
-                                    <td>Nhập điểm cuối kỳ</td>
+                                    <th>Mã học sinh</th>
+                                    <th>Họ và tên</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
+                                    <th>Nhập điểm cuối kỳ</th>
                                 </tr>
 
                                 {hs.map((val1, index) => {
@@ -202,8 +213,12 @@ export default function NhapDiem() {
                                         </tr>
                                     )
                                 })}
-                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
+                                
+                                
                             </table>
+                            <div id='subbutton'>
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkCK}> Lưu điểm cuối kì </button></div>
+                            </div>
                         </center>
                     </div>
                 </div>
@@ -214,21 +229,25 @@ export default function NhapDiem() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
+                    <div id='barright'>
                         <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-                                )
-                            })}
-                        </div>
                         <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
 
                 <div>
@@ -236,11 +255,11 @@ export default function NhapDiem() {
                         <center>
                             <table border="1">
                                 <tr>
-                                    <td>Mã học sinh</td>
-                                    <td>Họ và tên</td>
-                                    <td>Điểm giữa kỳ</td>
-                                    <td>Nhập điểm giữa kỳ</td>
-                                    <td>Điểm cuối kỳ</td>
+                                    <th>Mã học sinh</th>
+                                    <th>Họ và tên</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Nhập điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
                                 </tr>
 
                                 {hs.map((val1, index) => {
@@ -254,8 +273,11 @@ export default function NhapDiem() {
                                         </tr>
                                     )
                                 })}
-                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
+                                
                             </table>
+                            <div id='subbutton'>
+                                <div style={{ display: "inline-block" }}> <button onClick={enterMarkGK}> Lưu điểm giữa kì </button></div>
+                            </div>
                         </center>
                     </div>
                 </div>
@@ -266,21 +288,25 @@ export default function NhapDiem() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
+                    <div id='barright'>
                         <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { window.location.reload(history.push(`/nhapdiem/${val.MaLH}`)) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-                                )
-                            })}
-                        </div>
                         <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
 
                 <div>
@@ -288,10 +314,10 @@ export default function NhapDiem() {
                         <center>
                             <table border="1">
                                 <tr>
-                                    <td>Mã học sinh</td>
-                                    <td>Họ và tên</td>
-                                    <td>Điểm giữa kỳ</td>
-                                    <td>Điểm cuối kỳ</td>
+                                    <th>Mã học sinh</th>
+                                    <th>Họ và tên</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
                                 </tr>
 
                                 {hs.map((val1, index) => {

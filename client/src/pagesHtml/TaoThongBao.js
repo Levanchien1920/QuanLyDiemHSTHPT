@@ -37,19 +37,20 @@ export default function CreatePost() {
             <div>
                 <div className="bar">
                     <div className="Link">
-                        <a href="/taothongbao">Create</a>
-                        <a href="/taohannhapdiem"> Tạo Hạn Nhập Điểm</a>
-                        <div style={{ display: "inline-block" }}>Hi {user}</div>
-                        <a href="/trangchu">Đăng Xuất</a>
+                        <a href="/taohannhapdiem"> Khóa/Mở khóa Nhập Điểm</a>
+                        <div id='barright'>
+                            <div id='real_name'>Quản trị viên: {user}</div>
+                            <a href="/trangchu">Đăng Xuất</a>
+                        </div>                        
                     </div>
                 </div>
-                <div className="CreatePost">
-                    <div className="upload">
-                        <label>Title</label>
-                        <input type="text" onChange={(e) => { setTitle(e.target.value) }} />
-                        <label>Content</label>
-                        <input type="textarea" onChange={(e) => { setText(e.target.value) }} />
-                        <button onClick={submitpost}> Submit Post </button>
+                <div className="Loginpage">
+                    <div className="Loginform">
+                        <input type="text" placeholder="Tiêu đề thông báo" onChange={(e) => { setTitle(e.target.value) }} />
+                        <input type="textarea" placeholder="Nội dung thông báo" onChange={(e) => { setText(e.target.value) }} />                        
+                        <div id="subbutton">
+                            <button onClick={submitpost}> Đăng thông báo </button>
+                        </div>                        
                     </div>
                 </div>
             </div>

@@ -54,28 +54,30 @@ export default function Login() {
     }
     return (
         <div>
-            <div className="tieude">
-                <h1>Trường Trung Học Phổ Thông PHẠM VĂN ĐỒNG</h1>
-            </div>
-            <div className="bar">
+           <div className="bar">
                 <div className="Link">
-                    <a href="/trangchu">Trang Chủ</a>
-                    <a href="/login">Đăng Nhập</a>
+                    <h2>TRƯỜNG THPT PHẠM VĂN ĐỒNG</h2>                    
+                    <div id='barright'>
+                        <a href="/trangchu">Trang Chủ</a>
+                        <a href="#">Tin giáo dục</a>
+                        <a href="#">Tuyển sinh</a>
+                        <a href="#">Liên hệ</a>
+                    </div>
                 </div>
             </div>
-            <div className="Loginpage">
+            <div className="Loginpage"> 
                 <div className="Loginform">
-                    <label>Username</label>
-                    <input type="text" placeholder="Username" onChange={(e) => {
+                    <input id='Loginform_username' type="text" placeholder="Tên đăng nhập" onChange={(e) => {
                         setName(e.target.value)
                     }} />
-                    <label>Password</label>
-                    <input type="password" placeholder="Password" onChange={(e) => {
+                    <input type="password" placeholder="Mật khẩu" onChange={(e) => {
                         setPass(e.target.value)
                     }} />
-                    <button onClick={login}> Login </button>
-                    <div> {status}</div>
+                    <div id="subbutton">
+                        <button onClick={login}> Đăng nhập </button>
+                    </div>                    
                 </div>
+                <div id='Login_status'> {status}</div>
             </div>
         </div>
     )

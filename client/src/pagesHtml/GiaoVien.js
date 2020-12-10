@@ -40,34 +40,36 @@ export default function GiaoVien() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
-                        <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-
-                                )
-                            })}
-                        </div>
+                    <div id='barright'>
                         <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
 
                 <div className="see">
                     <center>
                         <table border="1">
                             <tr>
-                                <td></td>
-                                <td> Tiết 1</td>
-                                <td> Tiết 2</td>
-                                <td> Tiết 3</td>
-                                <td> Tiết 4</td>
-                                <td> Tiết 5</td>
+                                <th></th>
+                                <th> Tiết 1</th>
+                                <th> Tiết 2</th>
+                                <th> Tiết 3</th>
+                                <th> Tiết 4</th>
+                                <th> Tiết 5</th>
 
                             </tr>
 

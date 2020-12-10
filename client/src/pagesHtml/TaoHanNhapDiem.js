@@ -43,23 +43,29 @@ export default function TaoHanNHapDiem() {
             <div>
                 <div className="bar">
                     <div className="Link">
-                        <a href="/taothongbao">Create</a>
-                        <a href="/hannhapdiem"> Tạo Hạn Nhập Điểm</a>
-                        <div style={{ display: "inline-block" }}>Hi {user}</div>
-                        <a href="/trangchu">Đăng Xuất</a>
+                        <a href="/taothongbao">Tạo thông báo</a>
+                        <div id='barright'>
+                            <div id='real_name'>Quản trị viên: {user}</div>
+                            <a href="/trangchu">Đăng Xuất</a>
+                        </div>                        
                     </div>
                 </div>
-                <div>
-                    <div style={{ marginLeft: "35%", fontSize:"20px"}}>
-                    <div style={{ width: "170px", display: "inline-block"}}>Khóa điểm giữa kì:</div>
-                    <div style={{ display: "inline-block", marginLeft: "40px"}}> <button onClick={Khoagk}>  Khóa giữa kì </button></div>
-                    <div style={{ display: "inline-block"}}> <button onClick={Mogk}> Mở giữa kì </button></div><br></br>
-                    <div style={{ width: "170px", display: "inline-block"}}>Khóa điểm cuối kì:</div>
-                    <div style={{ display: "inline-block", marginLeft: "40px"}}> <button onClick={Khoack}>  Khóa cuối kì </button></div>
-                    <div style={{ display: "inline-block"}}> <button onClick={Mock}> Mở cuối kì </button></div>
-                    </div>
+                <div className="Loginpage">                    
+                    <p className='post_tieude'>Khóa điểm giữa kì:</p>
+                        <div className='sub_button'>
+                            <button onClick={Khoagk}>  Khóa giữa kì </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onClick={Mogk}> Mở giữa kì </button>
+                        </div>
+                    <p className='post_tieude'>Khóa điểm cuối kì:</p>
+                        <div className='sub_button'>
+                            <button onClick={Khoack}>  Khóa cuối kì </button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button onClick={Mock}> Mở cuối kì </button>
+                        </div>
                 </div>
             </div>
+            
         )
     }
     else {

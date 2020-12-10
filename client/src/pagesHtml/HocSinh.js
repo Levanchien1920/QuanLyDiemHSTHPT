@@ -32,21 +32,23 @@ export default function XemDiem() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
-                        <a href="/xemdiem">Xem Điểm</a>
+                <div className="Link">
+                    <h2>TRƯỜNG THPT PHẠM VĂN ĐỒNG</h2>                    
+                    <div id='barright'>
                         <a href="/phanhoi">Phản Hồi</a>
-                        <div style={{ display: "inline-block" }}>Hi {user}</div>
+                        <div id='real_name'>{user}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
                 </div>
+            </div>
                 <div>
                     <div>
                         <center>
-                            <table border="1">
+                            <table>
                                 <tr>
-                                    <td>Tên môn học</td>
-                                    <td>Điểm giữa kỳ</td>
-                                    <td>Điểm cuối kỳ</td>
+                                    <th>Tên môn học</th>
+                                    <th>Điểm giữa kỳ</th>
+                                    <th>Điểm cuối kỳ</th>
                                 </tr>
                                 {mh.map((val1) => {
                                     return (

@@ -38,32 +38,34 @@ export default function Post() {
         return (
             <div>
                 <div className="bar">
-                    <div className="Link">
+                    <div id='barright'>
                         <a href="/thoikhoabieu">Thời Khóa Biểu</a>
-                        <div className="ul" style={{ display: "inline-block" }}>
-                            {classList.map((val, key) => {
-                                return (
-                                    <div className="li" style={{ display: "inline-block" }} key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
-                                        <div>{val.TenLop}</div>
-                                    </div>
-
-                                )
-                            })}
-                        </div>
-                        <a href="/xemphanhoi">Xem phản hồi</a>
-                        <div style={{ display: "inline-block" }}>GV {name}</div>
+                        <div id='real_name'>Giáo viên: {name}</div>
                         <a href="/trangchu">Đăng Xuất</a>
                     </div>
+
+                    <div className='clear'><a></a></div>
+
+                    <div id='nhapdiem'>
+                        <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
+                        {classList.map((val, key) => {
+                            return (
+                                <div className="nhapdiem_mon" key={key} onClick={() => { history.push(`/nhapdiem/${val.MaLH}`) }}>
+                                    {val.TenLop}
+                                </div>
+                            )
+                        })}
+                    </div>                      
                 </div>
-                <div className="TrangChu">
+                <div>
                     <div className="Container">
                         {feedback.map((val, key) => {
                             return (
-                                <div className="post" key={key}>
-                                    <p>Mã Học Sinh:{val.MaHS}</p>
-                                    <p>Tên Học Sinh:{val.Hoten} </p>
-                                    <p>Lớp:{val.TenLop}</p>
-                                    <p>{val.noidung}</p>
+                                <div className="post_in_post" key={key}>
+                                    <p className='post_noidung'>Mã Học Sinh: <b>{val.MaHS}</b></p>
+                                    <p className='post_noidung'>Tên Học Sinh: <b>{val.Hoten}</b></p>
+                                    <p className='post_noidung'>Lớp: <b>{val.TenLop}</b></p>
+                                    <p className='post_noidung'>Nội dung phản hồi: {val.noidung}</p>
                                 </div>
                             )
                         })}

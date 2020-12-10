@@ -15,13 +15,15 @@ export default function MainPage() {
     }, []);
     return (
         <div>
-            <div className="tieude">
-                <h1>Trường Trung Học Phổ Thông PHẠM VĂN ĐỒNG</h1>
-            </div>
             <div className="bar">
                 <div className="Link">
-                    <a href="/trangchu">Trang Chủ</a>
-                    <a href="/login">Đăng Nhập</a>
+                    <h2>TRƯỜNG THPT PHẠM VĂN ĐỒNG</h2>                    
+                    <div id='barright'>
+                        <a href="https://trankyphong.edu.vn/tin-giao-duc/">Tin giáo dục</a>
+                        <a href="https://trankyphong.edu.vn/tuyen-sinh/">Tuyển sinh</a>
+                        <a href="https://trankyphong.edu.vn/">Liên hệ</a>
+                        <a href="/login">Đăng Nhập</a>
+                    </div>
                 </div>
             </div>
             <div className="TrangChu">
@@ -29,8 +31,9 @@ export default function MainPage() {
                     {postList.map((val, key) => {
                         return (
                             <div className="post" key={key} onClick={() => { history.push(`/post/${val.id}`) }}>
-                                <h1>{val.tieude}</h1>
-                                <p>{val.noidung.length > 400 ? val.noidung.substring(0, 400) : val.noidung}</p>
+                                <p className='post_tieude'>{val.tieude}</p>
+                                <p className='post_noidung'>{val.noidung.length > 400 ? val.noidung.substring(0, 400) : val.noidung}</p>
+                                <p className='post_comment'>Click để xem chi tiết</p>
                             </div>
                         )
                     })}

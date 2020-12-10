@@ -12,19 +12,25 @@ export default function Post() {
     });
     return (
         <div>
-            <div className="tieude">
-                <h1>Trường Trung Học Phổ Thông PHẠM VĂN ĐỒNG</h1>
-            </div>
             <div className="bar">
                 <div className="Link">
-                    <a href="/trangchu">Trang Chủ</a>
-                    <a href="/login">Đăng Nhập</a>
+                    <h2>TRƯỜNG THPT PHẠM VĂN ĐỒNG</h2>                    
+                    <div id='barright'>
+                        <a href="/trangchu">Trang Chủ</a>
+                        <a href="#">Tin giáo dục</a>
+                        <a href="#">Tuyển sinh</a>
+                        <a href="#">Liên hệ</a>
+                        <a href="/login">Đăng Nhập</a>
+                    </div>
                 </div>
             </div>
-            <div className="see">
-                <h1>{post.title}</h1>
-                <p>{post.text}</p>
+            <div className="Container">
+                <div className="post_in_post">
+                    <p className='post_tieude'>{post.title}</p>
+                    <p className='post_noidung'>{post.text}</p>
+                </div>
             </div>
+            
         </div>
     );
 }
