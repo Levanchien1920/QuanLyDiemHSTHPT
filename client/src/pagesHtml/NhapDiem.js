@@ -51,7 +51,7 @@ export default function NhapDiem() {
     function Main() {
         const [count, setCount] = useState(0)
         useEffect(() => {
-            Axios.get("http://localhost:3001/auth/GV", {
+            Axios.get("https://web-ttcn.herokuapp.com/auth/GV", {
                 headers: {
                     "x-access-token": JSON.parse(localStorage.getItem("token"))
                 }
@@ -61,17 +61,17 @@ export default function NhapDiem() {
             });
             if (auth === "OK") {
                 const temp = localStorage.getItem("user").split('"').join('')
-                Axios.put("http://localhost:3001/GV", { id: temp }).then((response) => {
+                Axios.put("https://web-ttcn.herokuapp.com/GV", { id: temp }).then((response) => {
                     setName(response.data[0].Hoten)
                 });
-                Axios.put("http://localhost:3001/getLop", { MaGV: temp }).then((response2) => {
+                Axios.put("https://web-ttcn.herokuapp.com/getLop", { MaGV: temp }).then((response2) => {
                     setClass(response2.data)
                 });
             }
-            Axios.get(`http://localhost:3001/LopFromMa/${lopID}`).then((response1) => {
+            Axios.get(`https://web-ttcn.herokuapp.com/LopFromMa/${lopID}`).then((response1) => {
                 setHs(response1.data)
             });
-            Axios.get("http://localhost:3001/layhan").then((response) => {
+            Axios.get("https://web-ttcn.herokuapp.com/layhan").then((response) => {
                 setGK(response.data[0].gk)
                 setCK(response.data[0].ck)
             });
@@ -79,7 +79,7 @@ export default function NhapDiem() {
         }, [count]);
     }
     const enterMarkGK = () => {
-        Axios.post('http://localhost:3001/luudiemGK', { diemHS: diemGK, vitri: vitriGK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
+        Axios.post('https://web-ttcn.herokuapp.com/luudiemGK', { diemHS: diemGK, vitri: vitriGK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
             setMark(response.data)
         });
     }
@@ -91,7 +91,7 @@ export default function NhapDiem() {
         }
     }
     const enterMarkCK = () => {
-        Axios.post('http://localhost:3001/luudiemCK', { diemHS: diemCK, vitri: vitriCK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
+        Axios.post('https://web-ttcn.herokuapp.com/luudiemCK', { diemHS: diemCK, vitri: vitriCK, malop: lopID, id: localStorage.getItem("user").split('"').join('') }).then((response) => {
             setMark(response.data)
         });
     }
