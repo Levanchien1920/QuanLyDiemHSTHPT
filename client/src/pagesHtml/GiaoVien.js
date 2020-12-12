@@ -133,7 +133,7 @@ export default function GiaoVien() {
     }
     else {
         return (
-            <div>GET OUT </div>
+            <div></div>
         )
     }
 }

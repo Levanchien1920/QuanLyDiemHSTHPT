@@ -3,7 +3,7 @@ const db = require("./config/db");
 const app = express();
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
-const PORT = 3001;
+var PORT = 3001;
 
 app.use(cors());
 app.use(express.json());

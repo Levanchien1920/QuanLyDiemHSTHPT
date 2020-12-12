@@ -76,7 +76,7 @@ export default function Post() {
     }
     else {
         return (
-            <div>GET OUT </div>
+            <div></div>
         )
     }
 }

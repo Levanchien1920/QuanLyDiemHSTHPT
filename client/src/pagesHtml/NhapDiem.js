@@ -115,7 +115,6 @@ export default function NhapDiem() {
                     </div>
 
                     <div className='clear'></div>
-
                     <div id='nhapdiem'>
                         <p className='nhapdiem_tieude'>Nhập điểm cho lớp: </p>
                         {classList.map((val, key) => {
@@ -340,7 +339,7 @@ export default function NhapDiem() {
     }
     else {
         return (
-            <div>GET OUT </div>
+            <div></div>
         )
     }
 }
