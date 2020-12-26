@@ -170,14 +170,12 @@ app.post('/luudiemGK', (req, res) => {
         db.query("UPDATE diemthi SET DiemGK = ? WHERE MaHS =  ? AND MaGV = ?", [element1, element2, idgv], (err, result) => {
         })
     }
-
-    db.query("SELECT * FROM diemthi where MaLH= ?", malop, (err, result) => {
-        if (err) {
-            res.send({ err: err })
-        }
-        res.send(result)
-    })
-
+        db.query("SELECT * FROM diemthi where MaGV= ? AND MaLH = ?",[idgv , malop] , (err, result) => { 
+            if (err) {
+                res.send({ err: err })
+            }
+            res.send(result)
+        })
 })
 app.post('/luudiemCK', (req, res) => {
     const diemHS = req.body.diemHS;
@@ -191,7 +189,7 @@ app.post('/luudiemCK', (req, res) => {
         })
     }
 
-    db.query("SELECT * FROM diemthi where MaLH= ?", malop, (err, result) => {
+    db.query("SELECT * FROM diemthi where MaGV= ? AND MaLH = ?",[idgv , malop] , (err, result) => {
         if (err) {
             res.send({ err: err })
         }
@@ -259,7 +257,8 @@ app.put("/getLop", (req, res) => {
 
 app.get("/LopFromMa/:ma", (req, res) => {
     const id = req.params.ma
-    db.query("SELECT * FROM hocsinh WHERE MaLH = ?", id, (err, result) => {
+    // db.query("SELECT diemthi.DiemGK, diemthi.DiemCK, monhoc.TenMH FROM ((diemthi INNER JOIN giaovien ON diemthi.MaGV = giaovien.MaGV) INNER JOIN monhoc ON monhoc.MaMH = giaovien.MaMH) WHERE diemthi.MaHS = ?"
+    db.query("SELECT * FROM hocsinh FROM (diemthi INNER JOIN hocsinh on diemthi.MaHS = hocsinh.MaHS) WHERE diemthi.MaLH = ?", id, (err, result) => {
         if (err) {
             console.log(err);
         }
