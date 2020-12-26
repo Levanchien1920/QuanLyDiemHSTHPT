@@ -37,7 +37,7 @@ export default function MainPage() {
                     })}
                 </div>
             </div>
-            <div className = 'tail_f'>
+            
             <div className='tail'>
                 <p className='tail_tieude'>
                     <center> CƠ QUAN CHỦ QUẢN </center> <br></br>
@@ -54,6 +54,6 @@ export default function MainPage() {
                     © 2020 - Trường THPT Phạm Văn Đồng - Quảng Ngãi
             </div>
             </div>
-        </div>
+        
     )
 }
